@@ -1,15 +1,20 @@
 import numpy as np
-from build.conway_tower import evolve_conway
+from conway_tower import evolve_conway
 import time
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-inp = np.zeros((56, 56), dtype=bool)
-inp[20:40, 20:40] = np.random.choice([True, False], (20, 20), p=[0.5, 0.5])
-t_step = 55
-out = evolve_conway(inp, t_step, True)
-out = np.moveaxis(out, 0, -1)
+np.random.seed(0)
 
+init_state = np.zeros((60, 60), dtype=bool)
+init_state[20:40, 20:40] = np.random.choice([True, False], (20, 20), p=[0.5, 0.5])
+t_step = 60
+
+ts = time.time()
+out = evolve_conway(init_state, t_step, z_as_time=True)
+print(f"time to build: {(time.time() - ts)* 1000} ms")
+
+print("visualizing voxels...")
 fig = plt.figure(figsize=(10, 10))
 ax = fig.add_subplot(111, projection='3d')
 ax.voxels(out, edgecolor='k')
