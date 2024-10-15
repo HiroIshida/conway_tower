@@ -26,14 +26,14 @@ py::array_t<bool> evolve_conway(py::array_t<bool> input, size_t T, bool perturb)
       for(size_t i = 0; i < nx; ++i) {
         for(size_t j = 0; j < ny; ++j) {
           size_t nearest_alive_count = 0;
-          voxels(t, i-1 % nx, j-1 % ny) ? nearest_alive_count++ : 0;
-          voxels(t, i-1 % nx, j) ? nearest_alive_count++ : 0;
-          voxels(t, i-1 % nx, j+1 % ny) ? nearest_alive_count++ : 0;
-          voxels(t, i, j-1 % ny) ? nearest_alive_count++ : 0;
-          voxels(t, i, j+1 % ny) ? nearest_alive_count++ : 0;
-          voxels(t, i+1 % nx, j-1 % ny) ? nearest_alive_count++ : 0;
-          voxels(t, i+1 % nx, j) ? nearest_alive_count++ : 0;
-          voxels(t, i+1 % nx, j+1 % ny) ? nearest_alive_count++ : 0;
+          voxels(t, (i-1) % nx, (j-1) % ny) ? nearest_alive_count++ : 0;
+          voxels(t, (i-1) % nx, j) ? nearest_alive_count++ : 0;
+          voxels(t, (i-1) % nx, (j+1) % ny) ? nearest_alive_count++ : 0;
+          voxels(t, i, (j-1) % ny) ? nearest_alive_count++ : 0;
+          voxels(t, i, (j+1) % ny) ? nearest_alive_count++ : 0;
+          voxels(t, (i+1) % nx, (j-1) % ny) ? nearest_alive_count++ : 0;
+          voxels(t, (i+1) % nx, j) ? nearest_alive_count++ : 0;
+          voxels(t, (i+1) % nx, (j+1) % ny) ? nearest_alive_count++ : 0;
           if(voxels(t, i, j)) {
             voxels(t+1, i, j) = nearest_alive_count == 2 || nearest_alive_count == 3;
           } else {
