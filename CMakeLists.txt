@@ -1,0 +1,10 @@
+set(CMAKE_CXX_STANDARD 17)
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif(NOT CMAKE_BUILD_TYPE)
+set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS_INIT} -fPIC")
+
+add_subdirectory(pybind11)
+pybind11_add_module(conway_tower conway.cpp)
+target_link_libraries(conway_tower)
+install(TARGETS conway_tower DESTINATION .)
