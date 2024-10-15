@@ -15,7 +15,7 @@ py::array_t<bool> evolve_conway(py::array_t<bool> input, size_t T, std::optional
     }
     size_t nx = buf.shape[0];
     size_t ny = buf.shape[1];
-    size_t nt = T + 1;
+    size_t nt = T;
     std::vector<size_t> shape = {nt, nx, ny};
     std::vector<size_t> strides = {nx * ny * sizeof(bool), ny * sizeof(bool), sizeof(bool)};
     py::array_t<bool> output(shape, strides);
@@ -65,6 +65,6 @@ py::array_t<bool> evolve_conway(py::array_t<bool> input, size_t T, std::optional
     return output;
 }
 
-PYBIND11_MODULE(conway_tower, m) {
+PYBIND11_MODULE(_conway_tower, m) {
   m.def("evolve_conway", &evolve_conway, "Evolve Conway's game of life", py::arg("input"), py::arg("T"), py::arg("perturbs") = std::nullopt);
 }
